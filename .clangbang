@@ -1,0 +1,65 @@
+# This file is `execfile()`ed during clangbang init to set your preferences.
+
+import ctypes
+import os
+
+thisdir = os.path.realpath(os.path.dirname(__file__))
+
+# Project name, used in rendered output
+project = "tangentsky"
+
+# Project version, used in rendered outputs
+version = "0.0.1"
+
+# The mainpage sourcefile
+mainpage = os.path.join(thisdir, 'doc/index.rst')
+
+# clangbang uses the standard python logging module. This is the log-level
+# of messages to enable.
+loglevel = 'info'
+
+# clangbang will attempt to find and load a suitable libclang. If you wish to
+# skip the automatic search and use a specific libclang, specify it here.
+libclang = ctypes.util.find_library('clang-3.8')
+
+# This is the path to the database that clangbang will use to maintain
+# intermediate state and all it's indexes.
+cachefile = os.path.join(thisdir, '.build/clangbang.sqlite')
+
+# This is the location of the compilation database. As far as I can tell,
+# libclang only supports one kind of compilation database: a json file in
+# the format output by cmake
+compilation_db = os.path.join(thisdir,
+                              '.build/ninja_clang/compile_commands.json')
+
+# When processing the output of compilations, we will only process files that
+# match one of these path patterns. Note that you do not want to do something
+# like `.*` here or you'll end up indexing
+include = [thisdir + '/.*']
+
+# Any file that matches one of these path patterns will be skipped, even if they
+# match an `include` pattern
+exclude = [r'.*third_party.*',
+           r'.*test/.*']
+
+# When rendering filenames, strip these prefixes off any paths
+strip_prefixes = [
+    thisdir,
+]
+
+# clangbang can search for documentation pages written in markdown or
+# restructured text. Specify here the root directories of where to search
+# for these pages. Each entry in the list should be a tuple of the form
+# (rootdir, include_patterns, exclude_patterns)
+doc_search = [
+    (thisdir, [r".*/README\.((md)|(rst))"], exclude)
+]
+
+# When generating the output, create symlinks to static files instead of
+# actually copying them. This is primarily for development so that modifying
+# the stylesheet wont require re-running clangbang.
+emit_static_symlinks = True
+
+# This is the directory where we clangbang should write out it's generated
+# files
+outdir = os.path.join(thisdir, '.build/clangbang/')

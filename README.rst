@@ -1,0 +1,1 @@
+linkhash/doc/README.rst

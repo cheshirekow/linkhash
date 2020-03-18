@@ -1,0 +1,16 @@
+build-essential
+cmake
+debhelper
+libargue-dev
+libeigen3-dev
+libelf-dev
+libfmt-dev
+libgoogle-glog-dev
+libloki-dev
+libssl-dev
+libtangent-util-dev
+libz-dev
+ninja-build
+pkg-config
+python
+
